@@ -286,7 +286,13 @@ WaveSurfer.WebAudio = {
         // close the audioContext if it was created by wavesurfer
         // not passed in as a parameter
         if (!this.params.audioContext) {
-            this.ac.close();
+            // check if browser supports AudioContext.close()
+            if(typeof this.ac.close() !== "undefined"){
+                // check if AudioContext is not closed
+                if(this.ac.state !== 'closed'){
+                	this.ac.close();
+            	}
+            }
         }
     },
 
